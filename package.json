@@ -1,0 +1,11 @@
+{
+  "name": "advent-of-code-template",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "typescript": "^5.2.2",
+    "bun-types": "latest"
+  }
+}
