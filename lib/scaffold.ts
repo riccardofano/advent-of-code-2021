@@ -82,12 +82,12 @@ import { test, expect } from "bun:test";
 import { readExample } from "@advent-of-code";
 import { partOne, partTwo } from "./${dayPath}";
 
-test("Part one", () => {
+test("Day ${dayPath} - Part one", () => {
     const input = readExample(${day});
     expect(partOne(input)).toEqual(null);
 });
 
-test("Part two", () => {
+test("Day ${dayPath} - Part two", () => {
     const input = readExample(${day});
     expect(partTwo(input)).toEqual(null);
 });
