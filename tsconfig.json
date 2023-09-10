@@ -19,7 +19,7 @@
             "bun-types" // add Bun global
         ],
         "paths": {
-            "@advent-of-code": ["./lib/helpers.ts"]
+            "@advent-of-code": ["./lib/index.ts"]
         }
     }
 }
