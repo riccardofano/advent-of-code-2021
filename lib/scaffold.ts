@@ -27,7 +27,13 @@ export function scaffold(day: number) {
     const exampleDirectory = path.join(import.meta.dir, "..", "src", "example");
     mkDir(exampleDirectory, "Failed to create example directory");
     const exampleFilePath = path.join(exampleDirectory, `${paddedDay}.txt`);
-    writeFile(exampleFilePath, "", "Failed to create example file");
+    writeFile(exampleFilePath, "", "Failed to create empty example file");
+
+    const inputDirectory = path.join(import.meta.dir, "..", "src", "input");
+    mkDir(inputDirectory, "Failed to create input directory");
+
+    const inputFilePath = path.join(inputDirectory, `${paddedDay}.txt`);
+    writeFile(inputFilePath, "", "Failed to create empty input file");
 }
 
 function mkDir(path: string, errorMessage: string) {
