@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "download": "bun ./lib/download.ts",
-        "scaffold": "bun ./lib/scaffold.ts"
+        "scaffold": "bun ./lib/scaffold.ts",
+        "solve": "bun ./lib/main.ts"
     },
     "dependencies": {},
     "devDependencies": {
