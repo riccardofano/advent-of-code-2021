@@ -92,7 +92,7 @@ test("Part one", () => {
     expect(partOne(input)).toEqual(null);
 });
 
-test("Part one", () => {
+test("Part two", () => {
     const input = readExample(${day});
     expect(partTwo(input)).toEqual(null);
 });
