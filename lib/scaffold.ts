@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-export function scaffold(day: number) {
+export function scaffold(day: number, shouldGenerateInput = true) {
     const paddedDay = day.toString().padStart(2, "0");
 
     const dayDirectory = path.join(import.meta.dir, "..", "src", "day");
@@ -20,7 +20,9 @@ export function scaffold(day: number) {
     const exampleFilePath = path.join(exampleDirectory, `${paddedDay}.txt`);
     writeFile(exampleFilePath, "", "Failed to create empty example file");
 
-    populateInput("", day);
+    if (shouldGenerateInput) {
+        populateInput("", day);
+    }
 }
 
 export function populateInput(data: string, day: number) {

@@ -34,8 +34,10 @@ function main() {
             scaffold(day);
             break;
         case "generate":
-            scaffold(day);
-            fetchInput(day, year);
+            scaffold(day, false);
+            fetchInput(day, year).then((text) => {
+                populateInput(text, day);
+            });
             break;
         default:
             throw new Error(
