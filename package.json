@@ -2,7 +2,8 @@
     "name": "advent-of-code-template",
     "type": "module",
     "scripts": {
-        "download": "bun ./lib/download.ts"
+        "download": "bun ./lib/download.ts",
+        "scaffold": "bun ./lib/scaffold.ts"
     },
     "dependencies": {},
     "devDependencies": {
