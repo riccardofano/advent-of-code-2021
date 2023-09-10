@@ -5,7 +5,8 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.6.0",
-    "typescript": "^5.2.2",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   }
 }
