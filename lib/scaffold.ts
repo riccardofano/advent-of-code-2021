@@ -38,11 +38,14 @@ function mkDir(path: string, errorMessage: string) {
     });
 }
 
-function writeFile(path: string, data: string, errorMessage: string) {
-    fs.writeFile(path, data, (err) => {
+function writeFile(filePath: string, data: string, errorMessage: string) {
+    fs.writeFile(filePath, data, (err) => {
         if (err && err.code !== "EEXIST") {
             throw new Error(errorMessage);
         }
+        const dirname = path.basename(path.dirname(filePath));
+        const filename = path.basename(filePath);
+        console.info(`Created ${path.join(dirname, filename)}`);
     });
 }
 
