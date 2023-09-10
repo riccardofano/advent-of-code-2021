@@ -27,25 +27,34 @@ function scaffold(day: number) {
     const paddedDay = day.toString().padStart(2, "0");
 
     const dayDirectory = path.join(import.meta.dir, "..", "src", "day");
-    fs.mkdir(dayDirectory, { recursive: true }, (err) => {
-        if (err && err?.code !== "EEXIST") {
-            throw new Error("Failed to create day directory");
-        }
-    });
+    mkDir(dayDirectory, "Failed to create day directory");
 
     const dayTemplate = createDayTemplate(day);
     const testTemplate = createTestTemplate(day, paddedDay);
 
     const dayPath = path.join(dayDirectory, `${paddedDay}.ts`);
     const testPath = path.join(dayDirectory, `${paddedDay}.test.ts`);
-    fs.writeFile(dayPath, dayTemplate, (err) => {
-        if (err && err.code !== "EEXIST") {
-            throw new Error(`Failed to create ${paddedDay}.ts`);
+    writeFile(dayPath, dayTemplate, `Failed to create ${paddedDay}.ts`);
+    writeFile(testPath, testTemplate, `Failed to create ${paddedDay}.test.ts`);
+
+    const exampleDirectory = path.join(import.meta.dir, "..", "src", "example");
+    mkDir(exampleDirectory, "Failed to create example directory");
+    const exampleFilePath = path.join(exampleDirectory, `${paddedDay}.txt`);
+    writeFile(exampleFilePath, "", "Failed to create example file");
+}
+
+function mkDir(path: string, errorMessage: string) {
+    fs.mkdir(path, { recursive: true }, (err) => {
+        if (err && err?.code !== "EEXIST") {
+            throw new Error(errorMessage);
         }
     });
-    fs.writeFile(testPath, testTemplate, (err) => {
+}
+
+function writeFile(path: string, data: string, errorMessage: string) {
+    fs.writeFile(path, data, (err) => {
         if (err && err.code !== "EEXIST") {
-            throw new Error(`Failed to create ${paddedDay}.ts`);
+            throw new Error(errorMessage);
         }
     });
 }
@@ -76,7 +85,7 @@ function createTestTemplate(day: number, dayPath: string): string {
     return `\
 import { test, expect } from "bun:test";
 import { readExample } from "@advent-of-code";
-import { partOne, partTwo } from "./${dayPath}.js";
+import { partOne, partTwo } from "./${dayPath}";
 
 test("Part one", () => {
     const input = readExample(${day});
@@ -85,7 +94,7 @@ test("Part one", () => {
 
 test("Part one", () => {
     const input = readExample(${day});
-    expect(partOne(input)).toEqual(null);
+    expect(partTwo(input)).toEqual(null);
 });
 `;
 }
