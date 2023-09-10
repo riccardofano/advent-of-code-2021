@@ -1,29 +1,16 @@
 import fs from "fs";
 import path from "path";
 
+import { parseDay } from "@advent-of-code";
+
 try {
-    const stringDay = process.argv[2];
-    if (!stringDay) {
-        throw new Error("Provide a day to download");
-    }
-
-    const day = parseInt(stringDay);
-    if (isNaN(day)) {
-        throw new Error("Day provided was not a valid number");
-    } else if (day < 1 || day > 25) {
-        throw new Error("Day provided was not between 1 and 25 inclusive");
-    }
-
+    const day = parseDay(process.argv[2]);
     scaffold(day);
 } catch (e) {
-    if (e instanceof Error) {
-        console.error(`${e.message}`);
-    } else {
-        console.error(`Unknown error ${e}`);
-    }
+    console.error(e instanceof Error ? e.message : e);
 }
 
-function scaffold(day: number) {
+export function scaffold(day: number) {
     const paddedDay = day.toString().padStart(2, "0");
 
     const dayDirectory = path.join(import.meta.dir, "..", "src", "day");

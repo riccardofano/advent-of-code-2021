@@ -1,28 +1,14 @@
+import { parseDay, parseYear } from "@advent-of-code";
 import { readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
 
 try {
-    const stringDay = process.argv[2];
-    if (!stringDay) {
-        throw new Error("Provide a day to download");
-    }
-
-    const year = 2022;
-    const day = parseInt(stringDay);
-    if (isNaN(day)) {
-        throw new Error("Day provided was not a valid number");
-    } else if (day < 1 || day > 25) {
-        throw new Error("Day provided was not between 1 and 25 inclusive");
-    }
-
+    const day = parseDay(process.argv[2]);
+    const year = parseYear(process.argv[3]);
     await fetchInput(day, year);
 } catch (e) {
-    if (e instanceof Error) {
-        console.error(`${e.message}`);
-    } else {
-        console.error(`Unknown error ${e}`);
-    }
+    console.error(e instanceof Error ? e.message : e);
 }
 
 async function fetchInput(day: number, year: number): Promise<string> {
