@@ -1,12 +1,14 @@
 {
-  "name": "advent-of-code-template",
-  "module": "index.ts",
-  "type": "module",
-  "dependencies": {},
-  "devDependencies": {
-    "@types/node": "^20.6.0",
-    "bun-types": "latest",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
-  }
+    "name": "advent-of-code-template",
+    "type": "module",
+    "scripts": {
+        "download": "bun ./lib/download.ts"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^20.6.0",
+        "bun-types": "latest",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2"
+    }
 }
