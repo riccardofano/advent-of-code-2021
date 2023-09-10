@@ -8,14 +8,16 @@ const EXAMPLE_PATH = path.join(BASE_PATH, "example");
 
 export function solve(fn: AnyFunction, ...args: Array<any>) {
     const start = performance.now();
-    const result = fn(...args);
+    const solution = fn(...args);
     const end = performance.now();
 
-    if (result === null) {
-        console.log("Not solved.");
-    } else {
-        console.log(`${result} (elapsed ${end - start})`);
-    }
+    const part = fn.name.substring(fn.name.length - 3).toLowerCase();
+    const result =
+        solution === null
+            ? "not solved."
+            : `${solution} (elapsed ${end - start}ms)`;
+
+    console.log(`Part ${part}: ${result}`);
 }
 
 function readFile(day: number, basePath: string): string {

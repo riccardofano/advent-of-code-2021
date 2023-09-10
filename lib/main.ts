@@ -56,10 +56,16 @@ function solve(day: number) {
         `${paddedDay}.ts`
     );
 
+    console.log(`🎄 Running day ${paddedDay} 🎄`);
+
     const child = spawn("bun", [dayPath]);
     child.stdout.setEncoding("utf-8");
-    child.stdout.on("data", console.log);
+    child.stdout.on("data", (data) => {
+        console.log(data.trim());
+    });
 
     child.stderr.setEncoding("utf-8");
-    child.stderr.on("data", console.error);
+    child.stderr.on("data", (data) => {
+        console.error(data.trim());
+    });
 }
