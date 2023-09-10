@@ -73,8 +73,8 @@ import { solve, readInput } from "@advent-of-code";
 
 function main() {
     const input = readInput(${day});
-    solve(partOne(input));
-    solve(partTwo(input));
+    solve(partOne, input);
+    solve(partTwo, input);
 }
 
 main();
