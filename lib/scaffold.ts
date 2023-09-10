@@ -29,16 +29,22 @@ export function scaffold(day: number) {
     const exampleFilePath = path.join(exampleDirectory, `${paddedDay}.txt`);
     writeFile(exampleFilePath, "", "Failed to create empty example file");
 
+    populateInput("", day);
+}
+
+export function populateInput(data: string, day: number) {
+    const paddedDay = day.toString().padStart(2, "0");
+
     const inputDirectory = path.join(import.meta.dir, "..", "src", "input");
     mkDir(inputDirectory, "Failed to create input directory");
 
     const inputFilePath = path.join(inputDirectory, `${paddedDay}.txt`);
-    writeFile(inputFilePath, "", "Failed to create empty input file");
+    writeFile(inputFilePath, data, "Failed to create empty input file");
 }
 
 function mkDir(path: string, errorMessage: string) {
     fs.mkdir(path, { recursive: true }, (err) => {
-        if (err && err?.code !== "EEXIST") {
+        if (err) {
             throw new Error(errorMessage);
         }
     });
@@ -46,12 +52,12 @@ function mkDir(path: string, errorMessage: string) {
 
 function writeFile(filePath: string, data: string, errorMessage: string) {
     fs.writeFile(filePath, data, (err) => {
-        if (err && err.code !== "EEXIST") {
+        if (err) {
             throw new Error(errorMessage);
         }
         const dirname = path.basename(path.dirname(filePath));
         const filename = path.basename(filePath);
-        console.info(`Created ${path.join(dirname, filename)}`);
+        console.info(`Written to ${path.join(dirname, filename)}`);
     });
 }
 
