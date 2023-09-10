@@ -1,15 +1,6 @@
 import fs from "fs";
 import path from "path";
 
-import { parseDay } from "@advent-of-code";
-
-try {
-    const day = parseDay(process.argv[2]);
-    scaffold(day);
-} catch (e) {
-    console.error(e instanceof Error ? e.message : e);
-}
-
 export function scaffold(day: number) {
     const paddedDay = day.toString().padStart(2, "0");
 

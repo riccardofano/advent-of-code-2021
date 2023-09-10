@@ -1,20 +1,8 @@
-import { parseDay, parseYear } from "@advent-of-code";
 import { readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
-import { populateInput } from "./scaffold";
 
-try {
-    const day = parseDay(process.argv[2]);
-    const year = parseYear(process.argv[3]);
-    let input = await fetchInput(day, year);
-
-    populateInput(input, day);
-} catch (e) {
-    console.error(e instanceof Error ? e.message : e);
-}
-
-async function fetchInput(day: number, year: number): Promise<string> {
+export async function fetchInput(day: number, year: number): Promise<string> {
     const tokenPath = join(homedir(), ".adventofcode.session");
     const sessionToken = readFileSync(tokenPath, {
         encoding: "utf-8",

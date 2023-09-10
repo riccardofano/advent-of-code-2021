@@ -2,9 +2,10 @@
     "name": "advent-of-code-template",
     "type": "module",
     "scripts": {
-        "download": "bun ./lib/download.ts",
-        "scaffold": "bun ./lib/scaffold.ts",
-        "solve": "bun ./lib/main.ts"
+        "solve": "bun ./lib/main.ts solve",
+        "download": "bun ./lib/main.ts download",
+        "scaffold": "bun ./lib/main.ts scaffold",
+        "generate": "bun ./lib/main.ts generate"
     },
     "dependencies": {},
     "devDependencies": {

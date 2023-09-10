@@ -2,6 +2,10 @@ import { argv } from "bun";
 import { spawn } from "child_process";
 import path from "path";
 
+import { parseDay, parseYear } from "@advent-of-code";
+import { fetchInput } from "./download";
+import { populateInput, scaffold } from "./scaffold";
+
 try {
     main();
 } catch (e) {
@@ -9,18 +13,38 @@ try {
 }
 
 function main() {
-    const stringDay = argv[2];
-    if (!stringDay) {
-        throw new Error("USAGE: bun solve {day}");
+    const command = argv[2];
+    if (!command) {
+        throw new Error("USAGE: bun <command> day [year]");
     }
 
-    const day = parseInt(stringDay);
-    if (isNaN(day) || day < 1 || day > 25) {
-        throw new Error(
-            "Please provide a valid day between 1 and 25 inclusive"
-        );
-    }
+    const day = parseDay(argv[3]);
+    const year = parseYear(argv[4]);
 
+    switch (command) {
+        case "solve":
+            solve(day);
+            break;
+        case "download":
+            fetchInput(day, year).then((text) => {
+                populateInput(text, day);
+            });
+            break;
+        case "scaffold":
+            scaffold(day);
+            break;
+        case "generate":
+            scaffold(day);
+            fetchInput(day, year);
+            break;
+        default:
+            throw new Error(
+                "Unknown command. Available commands are 'solve', 'download', 'scaffold' and 'generate'"
+            );
+    }
+}
+
+function solve(day: number) {
     const paddedDay = day.toString().padStart(2, "0");
     const dayPath = path.join(
         import.meta.dir,
