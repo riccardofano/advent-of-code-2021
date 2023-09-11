@@ -1,17 +1,16 @@
 {
-    "name": "advent-of-code-template",
-    "type": "module",
-    "scripts": {
-        "solve": "bun ./lib/main.ts solve",
-        "download": "bun ./lib/main.ts download",
-        "scaffold": "bun ./lib/main.ts scaffold",
-        "generate": "bun ./lib/main.ts generate"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "@types/node": "^20.6.0",
-        "bun-types": "latest",
-        "prettier": "^3.0.3",
-        "typescript": "^5.2.2"
-    }
+  "name": "advent-of-code-template",
+  "type": "module",
+  "scripts": {
+    "solve": "bun ./lib/main.ts solve",
+    "download": "bun ./lib/main.ts download",
+    "scaffold": "bun ./lib/main.ts scaffold",
+    "generate": "bun ./lib/main.ts generate"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bun-types": "latest",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  }
 }
