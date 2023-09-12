@@ -29,8 +29,58 @@ export function partOne(input: string): number | null {
     return decimalGamma * decimalEpsilon;
 }
 
+function findOxygenRating(lines: Array<string>): string {
+    let i = 0;
+    let validLines = lines;
+
+    while (validLines.length > 1) {
+        let ones = 0;
+
+        for (const line of validLines) {
+            if (line[i] === "1") {
+                ones++;
+            }
+        }
+
+        const zeroes = validLines.length - ones;
+        const mostCommon = ones >= zeroes ? "1" : "0";
+
+        validLines = validLines.filter((line) => line[i] === mostCommon);
+        i++;
+    }
+
+    return validLines[0];
+}
+
+function findScrubberRating(lines: Array<string>): string {
+    let i = 0;
+    let validLines = lines;
+
+    while (validLines.length > 1) {
+        let ones = 0;
+
+        for (const line of validLines) {
+            if (line[i] === "1") {
+                ones++;
+            }
+        }
+
+        const zeroes = validLines.length - ones;
+        const leastCommon = ones < zeroes ? "1" : "0";
+
+        validLines = validLines.filter((line) => line[i] === leastCommon);
+        i++;
+    }
+
+    return validLines[0];
+}
+
 export function partTwo(input: string): number | null {
-    return null;
+    const lines = input.trim().split("\n");
+    const oxygenRating = findOxygenRating(lines);
+    const scrubberRating = findScrubberRating(lines);
+
+    return parseInt(oxygenRating, 2) * parseInt(scrubberRating, 2);
 }
 
 import { solve, readInput } from "@advent-of-code";
