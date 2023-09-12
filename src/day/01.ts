@@ -12,19 +12,13 @@ export function partOne(input: string): number | null {
 }
 
 export function partTwo(input: string): number | null {
-    const lines = input
-        .trim()
-        .split("\n")
-        .map((l) => parseInt(l));
+    const lines = input.trim().split("\n");
     let increases = 0;
-    let previousSum = Infinity;
 
-    for (let i = 2; i < lines.length; i++) {
-        let currentSum = lines[i] + lines[i - 1] + lines[i - 2];
-        if (currentSum > previousSum) {
+    for (let i = 3; i < lines.length; i++) {
+        if (+lines[i] > +lines[i - 3]) {
             increases++;
         }
-        previousSum = currentSum;
     }
 
     return increases;
