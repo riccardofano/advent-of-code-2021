@@ -1,6 +1,7 @@
 type State = {
     depth: number;
     hPosition: number;
+    aim: number;
 };
 
 function executeLine(line: string, state: State) {
@@ -22,8 +23,28 @@ function executeLine(line: string, state: State) {
     }
 }
 
+function executeLineFromManual(line: string, state: State) {
+    const [command, stringAmount] = line.split(" ");
+    const amount = parseInt(stringAmount);
+
+    switch (command) {
+        case "forward":
+            state.hPosition += amount;
+            state.depth += state.aim * amount;
+            break;
+        case "up":
+            state.aim -= amount;
+            break;
+        case "down":
+            state.aim += amount;
+            break;
+        default:
+            throw new Error(`Unexpected command: ${command}`);
+    }
+}
+
 export function partOne(input: string): number | null {
-    const state: State = { depth: 0, hPosition: 0 };
+    const state: State = { depth: 0, hPosition: 0, aim: 0 };
     const lines = input.trim().split("\n");
 
     for (let i = 0; i < lines.length; i++) {
@@ -34,7 +55,14 @@ export function partOne(input: string): number | null {
 }
 
 export function partTwo(input: string): number | null {
-    return null;
+    const state: State = { depth: 0, hPosition: 0, aim: 0 };
+    const lines = input.trim().split("\n");
+
+    for (let i = 0; i < lines.length; i++) {
+        executeLineFromManual(lines[i], state);
+    }
+
+    return state.depth * state.hPosition;
 }
 
 import { solve, readInput } from "@advent-of-code";
