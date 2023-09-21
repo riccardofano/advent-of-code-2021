@@ -9,5 +9,5 @@ test("Day 04 - Part one", () => {
 
 test("Day 04 - Part two", () => {
     const input = readExample(4);
-    expect(partTwo(input)).toEqual(null);
+    expect(partTwo(input)).toEqual(1924);
 });

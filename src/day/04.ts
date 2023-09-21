@@ -31,10 +31,14 @@ function parseBoard(board: string): Board {
 }
 
 function hasWinningCombination(
-    point: Point,
+    point: Point | undefined,
     grid: Grid,
     pickedNumbers: Set<number>
 ): boolean {
+    if (!point) {
+        return false;
+    }
+
     let validCol = true;
     let validRow = true;
 
@@ -53,6 +57,21 @@ function hasWinningCombination(
     return validRow || validCol;
 }
 
+function calculateWinningScore(
+    board: Map<number, Point>,
+    pickedNumbers: Set<number>,
+    lastPicked: number
+): number {
+    let sumOfNotPicked = 0;
+    for (const key of board.keys()) {
+        if (!pickedNumbers.has(key)) {
+            sumOfNotPicked += key;
+        }
+    }
+
+    return sumOfNotPicked * lastPicked;
+}
+
 export function partOne(input: string): number | null {
     let lines = input.split("\n\n");
 
@@ -67,21 +86,10 @@ export function partOne(input: string): number | null {
 
         for (const board of boards) {
             const coords = board.map.get(newNumber);
-            if (
-                coords === undefined ||
-                !hasWinningCombination(coords, board.grid, pickedNumbers)
-            ) {
+            if (!hasWinningCombination(coords, board.grid, pickedNumbers)) {
                 continue;
             }
-
-            let sumOfNotPicked = 0;
-            for (const key of board.map.keys()) {
-                if (!pickedNumbers.has(key)) {
-                    sumOfNotPicked += key;
-                }
-            }
-
-            return sumOfNotPicked * newNumber;
+            return calculateWinningScore(board.map, pickedNumbers, newNumber);
         }
     }
 
@@ -89,6 +97,34 @@ export function partOne(input: string): number | null {
 }
 
 export function partTwo(input: string): number | null {
+    let lines = input.split("\n\n");
+
+    const numbers = lines.shift()!.split(",");
+    let pickedNumbers = new Set<number>();
+
+    let boards = lines.map(parseBoard);
+    let lastBoard: Board | null = null;
+
+    while (numbers.length > 0) {
+        const newNumber = +(numbers.shift() as string);
+        pickedNumbers.add(newNumber);
+
+        boards = boards.filter((board) => {
+            const coords = board.map.get(newNumber);
+            return !hasWinningCombination(coords, board.grid, pickedNumbers);
+        });
+
+        if (boards.length === 1) {
+            lastBoard = boards[0];
+        } else if (boards.length === 0) {
+            return calculateWinningScore(
+                lastBoard!.map,
+                pickedNumbers,
+                newNumber
+            );
+        }
+    }
+
     return null;
 }
 
