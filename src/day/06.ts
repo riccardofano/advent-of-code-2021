@@ -37,13 +37,21 @@ export function partOne(input: string): number | null {
         timings = simulateDay(timings);
     }
 
-    const fish = countFish(timings);
-    console.log(fish);
-    return fish;
+    return countFish(timings);
 }
 
 export function partTwo(input: string): number | null {
-    return null;
+    let timings = Array(9).fill(0);
+    const initialFish = input.trim().split(",");
+    for (const timeUntilHatch of initialFish) {
+        timings[+timeUntilHatch] += 1;
+    }
+
+    for (let day = 0; day < 256; day++) {
+        timings = simulateDay(timings);
+    }
+
+    return countFish(timings);
 }
 
 import { solve, readInput } from "@advent-of-code";
