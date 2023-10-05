@@ -16,7 +16,22 @@ export function partOne(input: string): number | null {
 }
 
 export function partTwo(input: string): number | null {
-    return null;
+    const positions = input.trim().split(",").map(Number);
+    const max = Math.max(...positions);
+    const min = Math.min(...positions);
+
+    let fuelCosts = [];
+    for (let position = min; position <= max; position++) {
+        let currentCost = 0;
+        for (let j = 0; j < positions.length; j++) {
+            const positionChange = Math.abs(positions[j] - position);
+            const additionalCost = (positionChange + 1) / 2;
+            currentCost += positionChange * additionalCost;
+        }
+        fuelCosts.push(currentCost);
+    }
+
+    return Math.min(...fuelCosts);
 }
 
 import { solve, readInput } from "@advent-of-code";
