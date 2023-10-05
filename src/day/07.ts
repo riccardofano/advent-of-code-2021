@@ -1,37 +1,41 @@
 export function partOne(input: string): number | null {
     const positions = input.trim().split(",").map(Number);
-    const max = Math.max(...positions);
-    const min = Math.min(...positions);
+    positions.sort((a, b) => a - b);
+    const median = positions[Math.floor(positions.length / 2)];
 
-    let fuelCosts = [];
-    for (let position = min; position <= max; position++) {
-        let currentCost = 0;
-        for (let j = 0; j < positions.length; j++) {
-            currentCost += Math.abs(positions[j] - position);
-        }
-        fuelCosts.push(currentCost);
+    let cost = 0;
+    for (let j = 0; j < positions.length; j++) {
+        cost += Math.abs(positions[j] - median);
     }
 
-    return Math.min(...fuelCosts);
+    return cost;
 }
 
 export function partTwo(input: string): number | null {
     const positions = input.trim().split(",").map(Number);
-    const max = Math.max(...positions);
-    const min = Math.min(...positions);
-
-    let fuelCosts = [];
-    for (let position = min; position <= max; position++) {
-        let currentCost = 0;
-        for (let j = 0; j < positions.length; j++) {
-            const positionChange = Math.abs(positions[j] - position);
-            const additionalCost = (positionChange + 1) / 2;
-            currentCost += positionChange * additionalCost;
-        }
-        fuelCosts.push(currentCost);
+    let sum = 0;
+    for (let i = 0; i < positions.length; i++) {
+        sum += positions[i];
     }
+    const mean = Math.floor(sum / positions.length);
 
-    return Math.min(...fuelCosts);
+    return Math.min(
+        calculatePartTwoCost(mean, positions),
+        calculatePartTwoCost(mean + 1, positions)
+    );
+}
+
+function calculatePartTwoCost(
+    position: number,
+    positions: Array<number>
+): number {
+    let cost = 0;
+    for (let j = 0; j < positions.length; j++) {
+        const positionChange = Math.abs(positions[j] - position);
+        const additionalCost = (positionChange + 1) / 2;
+        cost += positionChange * additionalCost;
+    }
+    return cost;
 }
 
 import { solve, readInput } from "@advent-of-code";
